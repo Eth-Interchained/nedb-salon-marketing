@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node", "express"]
+  },
+  "include": [
+    "types.ts",
+    "nedb-adapter.ts",
+    "seo-engine.ts",
+    "renderer.ts",
+    "server.ts"
+  ],
+  "exclude": ["node_modules", "dist", "*.html", "skills"]
+}
