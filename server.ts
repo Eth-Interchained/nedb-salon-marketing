@@ -13,19 +13,13 @@ app.use(express.urlencoded({ extended: true }));
 // ==========================================
 // STRICT ENVIRONMENT DOMINANCE (PROCESS.ENV)
 // ==========================================
-// 1. SALON_CAMPAIGN determines domain branding, hero text, and primary city
 const CAMPAIGN_ENV = (process.env.SALON_CAMPAIGN as CampaignType) || 'winter_park';
-
-// 2. NEDB_DB determines the isolated database instance
 const NEDB_DB_NAME = process.env.NEDB_DB || `${CAMPAIGN_ENV}_db`;
-
-// 3. PORT determines process port
 const PORT = parseInt(process.env.PORT || '3201', 10);
 
 // Initialize Isolated Database Instance
 const store = new EmbeddedNedbStore(CAMPAIGN_ENV);
 
-// Resolve Strict Campaign Config
 const CAMPAIGN_CONFIGS: Record<CampaignType, CampaignConfig> = {
   winter_park: {
     campaign: 'winter_park',
@@ -71,7 +65,6 @@ console.log(`- Listening Port: ${PORT}`);
 // STRICT SERVER-SIDE ROUTING & RENDER ENGINE
 // ==========================================
 
-// Main Public Directory Route
 app.get('/', (req, res) => {
   const salons = store.getAllSalons();
   const pendingClaims = store.getPendingStage2Claims();
@@ -80,7 +73,6 @@ app.get('/', (req, res) => {
   res.send(html);
 });
 
-// Machine-Readable AI Discovery Endpoint (/llms.txt)
 app.get('/llms.txt', (req, res) => {
   const salons = store.getAllSalons();
   const markdown = ServerRenderer.generateLlmsTxt(salons, activeConfig);
@@ -88,7 +80,6 @@ app.get('/llms.txt', (req, res) => {
   res.send(markdown);
 });
 
-// Automated XML Sitemap (/sitemap.xml)
 app.get('/sitemap.xml', (req, res) => {
   const salons = store.getAllSalons();
   const posts = store.getAllBlogPosts();
@@ -97,14 +88,12 @@ app.get('/sitemap.xml', (req, res) => {
   res.send(xml);
 });
 
-// AI-Crawlable Directives (/robots.txt)
 app.get('/robots.txt', (req, res) => {
   const robots = SeoEngine.generateRobotsTxt(activeConfig);
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.send(robots);
 });
 
-// API Stage 1 PWYW Checkout
 app.post('/api/checkout/stage1', (req, res) => {
   const result = store.processStage1Payment({
     salonId: req.body.salonId,
@@ -119,7 +108,6 @@ app.post('/api/checkout/stage1', (req, res) => {
   res.json({ success: true, ...result });
 });
 
-// API Stage 3 Human Verification Approval
 app.post('/api/admin/claims/:claimId/approve', (req, res) => {
   const salon = store.approveStage3HumanVerification(
     req.params.claimId,
@@ -128,15 +116,12 @@ app.post('/api/admin/claims/:claimId/approve', (req, res) => {
   res.json({ success: !!salon, salon });
 });
 
-// API Admin Revenue Stats
 app.get('/api/admin/stats', (req, res) => {
   const stats = store.getRevenueStats();
   const payments = store.getAllPayments();
   res.json({ success: true, campaign: CAMPAIGN_ENV, db: NEDB_DB_NAME, stats, payments });
 });
 
-// Start Express Server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`[SSR SERVER RUNNING] http://0.0.0.0:${PORT} (${activeConfig.domain})`);
 });
-
