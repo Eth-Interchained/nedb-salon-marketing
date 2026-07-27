@@ -1,12 +1,13 @@
 {
   "name": "nedb-salon-marketing",
-  "version": "1.0.0",
-  "description": "Production TypeScript SSR Local SEO Platform, PWYW Directory & Admin CMS for Salons",
+  "version": "1.0.1",
+  "description": "Production TypeScript SSR Local SEO Platform & PWYW Directory for Salons",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "prepare": "npm run build"
   },
   "keywords": [
     "nedb",
