@@ -1,0 +1,29 @@
+{
+  "name": "nedb-salon-marketing",
+  "version": "1.0.0",
+  "description": "Production TypeScript SSR Local SEO Platform, PWYW Directory & Admin CMS for Salons",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsc -w"
+  },
+  "keywords": [
+    "nedb",
+    "salon-platform",
+    "local-seo",
+    "pwyw",
+    "typescript-ssr",
+    "json-ld"
+  ],
+  "author": "Interchained LLC",
+  "license": "BUSL-1.1",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100 dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mint on the Avenue • Mobile Responsive Local SEO Platform & Admin CMS</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            mint: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #022c22; }
+    ::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
+
+    .glass-panel {
+      background: rgba(6, 44, 34, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(16, 185, 129, 0.12);
+    }
+    .glass-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.25);
+    }
+    button, a, input, select {
+      touch-action: manipulation;
+    }
+  </style>
+
+  <!-- Pre-rendered JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "@id": "https://winter-park-hair.com/#salon-mint-on-the-avenue",
+    "name": "Mint on the Avenue",
+    "description": "Premier Aveda Salon & Color Specialist on Park Avenue",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+    "telephone": "(401) 231-1000",
+    "email": "owners@mintontheavenue.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "326 Park Ave N",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32789",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.5981,
+      "longitude": -81.3512
+    },
+    "url": "https://winter-park-hair.com",
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "128"
+    }
+  }
+  </script>
+</head>
+<body class="h-full font-sans antialiased bg-slate-950 text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- ========================================== -->
+  <!-- MOBILE-FRIENDLY HEADER & NAVIGATION BAR    -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-emerald-950/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-2">
+        
+        <!-- Logo & Domain Title -->
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-300 flex items-center justify-center text-slate-950 font-black text-lg sm:text-xl shadow-lg shadow-emerald-500/20 shrink-0">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span id="appDomainTitle" class="font-serif font-bold text-base sm:text-lg text-white tracking-tight truncate">winter-park-hair.com</span>
+              <span id="envBadge" class="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hidden xs:inline-block">
+                winter_park
+              </span>
+            </div>
+            <p id="appDomainTagline" class="text-[11px] text-slate-400 hidden lg:block truncate">Hyper-Local Flagship • Mint on the Avenue Anchor</p>
+          </div>
+        </div>
+
+        <!-- Desktop Environment Switcher Tabs -->
+        <div class="hidden lg:flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <button onclick="switchCampaign('winter_park')" id="envBtn-winter_park" class="env-tab px-3 py-1.5 rounded-lg transition-all bg-emerald-600 text-slate-950 font-bold shadow-md">
+            winter-park-hair.com
+          </button>
+          <button onclick="switchCampaign('hair_stylist')" id="envBtn-hair_stylist" class="env-tab px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white">
+            hair-stylist-near-me.com
+          </button>
+          <button onclick="switchCampaign('salon_directory')" id="envBtn-salon_directory" class="env-tab px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white">
+            salon-near-me.com
+          </button>
+        </div>
+
+        <!-- Desktop Navigation Actions -->
+        <div class="hidden sm:flex items-center gap-2">
+          <button onclick="showPublicView()" id="navPublicBtn" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-slate-950 text-xs font-bold transition">
+            Directory
+          </button>
+          <button onclick="showBlogView()" id="navBlogBtn" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-medium border border-slate-800 transition">
+            SEO Blog
+          </button>
+          <button onclick="showAdminView()" id="navAdminBtn" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-emerald-500 text-slate-950 font-bold text-xs shadow-md shadow-emerald-900/30 flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-lock text-[10px]"></i>
+            Admin
+          </button>
+        </div>
+
+        <!-- Mobile Controls (Hamburger & Mobile Admin Button) -->
+        <div class="flex sm:hidden items-center gap-2">
+          <button onclick="showAdminView()" class="p-2 rounded-lg bg-emerald-600 text-slate-950 font-bold text-xs">
+            <i class="fa-solid fa-user-shield"></i>
+          </button>
+          <button onclick="toggleMobileMenu()" class="p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 text-base active:bg-slate-800">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MOBILE SLIDE-DOWN DRAWER MENU -->
+    <div id="mobileDrawer" class="hidden sm:hidden border-t border-emerald-950/80 bg-slate-950 px-4 py-4 space-y-4">
+      <div class="space-y-1">
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Navigation Views</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="showPublicView(); toggleMobileMenu();" class="py-2.5 rounded-xl bg-emerald-600 text-slate-950 font-bold text-xs text-center">
+            Directory
+          </button>
+          <button onclick="showBlogView(); toggleMobileMenu();" class="py-2.5 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 text-xs text-center font-medium">
+            SEO Blog
+          </button>
+          <button onclick="showAdminView(); toggleMobileMenu();" class="py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs text-center">
+            Admin
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-1 pt-2 border-t border-slate-900">
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Domain Environments</div>
+        <div class="space-y-1.5">
+          <button onclick="switchCampaign('winter_park'); toggleMobileMenu();" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-medium text-emerald-300 flex items-center justify-between">
+            <span>winter-park-hair.com</span>
+            <span class="text-[10px] text-slate-500 font-mono">winter_park</span>
+          </button>
+          <button onclick="switchCampaign('hair_stylist'); toggleMobileMenu();" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 flex items-center justify-between">
+            <span>hair-stylist-near-me.com</span>
+            <span class="text-[10px] text-slate-500 font-mono">hair_stylist</span>
+          </button>
+          <button onclick="switchCampaign('salon_directory'); toggleMobileMenu();" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 flex items-center justify-between">
+            <span>salon-near-me.com</span>
+            <span class="text-[10px] text-slate-500 font-mono">salon_directory</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT CONTAINER                     -->
+  <!-- ========================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-6 sm:space-y-8">
+
+    <!-- PUBLIC DIRECTORY VIEW -->
+    <div id="publicView" class="space-y-6 sm:space-y-8">
+      
+      <!-- HERO BANNER (MOBILE OPTIMIZED) -->
+      <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden glass-panel p-5 sm:p-12 border border-emerald-900/50 bg-gradient-to-br from-slate-950 via-mint-950/40 to-slate-950">
+        <div class="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] sm:text-xs font-semibold">
+            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+            <span id="heroPillText" class="truncate">Flagship Anchor Tenant • Mint on the Avenue</span>
+          </div>
+
+          <h1 id="heroTitle" class="font-serif text-2xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            Park Avenue’s Premier Aveda Hair Salon
+          </h1>
+          <p id="heroSubtitle" class="text-xs sm:text-lg text-slate-300 leading-relaxed font-light">
+            Hand-crafted Balayage, Aveda Botanical Color, Precision Haircuts, and Certified Hand-Tied Hair Extensions at Mint on the Avenue in Winter Park, FL.
+          </p>
+
+          <!-- Search & Filter Controls -->
+          <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row gap-2.5">
+            <div class="relative flex-1">
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs sm:text-sm"></i>
+              <input type="text" id="searchInput" oninput="filterSalons()" placeholder="Search salon name or service (e.g. Balayage)..." class="w-full bg-slate-950/90 border border-emerald-900/60 rounded-xl pl-10 pr-3 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <button onclick="openStage1Checkout('sal_winter_garden_curl', 'Winter Garden Curl Co.')" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-600 active:bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 transition whitespace-nowrap">
+              <i class="fa-solid fa-store"></i>
+              List Your Salon (3-Stage Workflow)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIRECTORY LISTINGS GRID -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg sm:text-xl font-bold font-serif text-white flex items-center gap-2">
+            <span>Verified Local Salons</span>
+            <span id="resultsCountBadge" class="text-[11px] sm:text-xs font-mono px-2 py-0.5 rounded-full bg-slate-900 text-emerald-400 border border-emerald-950">4 Venues</span>
+          </h2>
+        </div>
+
+        <div id="salonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PUBLIC SEO BLOG VIEW (/blog) -->
+    <div id="blogView" class="hidden space-y-6 sm:space-y-8">
+      <div class="space-y-2 sm:space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold">
+          <i class="fa-solid fa-newspaper"></i> SEO Articles & Hair Care Guides
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-white">Central Florida Salon Journal & Color Insights</h2>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
+          Expert guides on custom balayage maintenance, organic Aveda hair color, hand-tied extension care, and Winter Park hair trends.
+        </p>
+      </div>
+
+      <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- ADMIN PORTAL VIEW (/admin) -->
+    <div id="adminView" class="hidden space-y-6 sm:space-y-8">
+      
+      <!-- ADMIN HEADER & REVENUE STATS -->
+      <div class="p-4 sm:p-6 rounded-2xl glass-panel border border-emerald-900/60 space-y-4 sm:space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-xl sm:text-2xl font-bold font-serif text-white">Platform Administration</h2>
+              <span id="adminEnvBadge" class="text-[10px] sm:text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                DB Instance: winter_park_db
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Manage listings, process HITL phone calls, inspect payments, and publish SEO blog posts.</p>
+          </div>
+
+          <!-- Responsive Admin Navigation Tabs -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+            <button onclick="switchAdminTab('revenue')" id="adminTabBtn-revenue" class="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-slate-950 whitespace-nowrap">
+              <i class="fa-solid fa-chart-line"></i> Revenue
+            </button>
+            <button onclick="switchAdminTab('claims')" id="adminTabBtn-claims" class="px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white whitespace-nowrap">
+              <i class="fa-solid fa-phone-volume"></i> Verification Queue (1)
+            </button>
+            <button onclick="switchAdminTab('cms')" id="adminTabBtn-cms" class="px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white whitespace-nowrap">
+              <i class="fa-solid fa-blog"></i> Blog CMS
+            </button>
+          </div>
+        </div>
+
+        <!-- REVENUE OVERVIEW CARDS -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-xs font-medium text-slate-400">Monthly Recurring Revenue</div>
+            <div class="text-2xl font-bold font-mono text-emerald-400">$100.00 <span class="text-xs text-slate-500 font-sans font-normal">/ mo</span></div>
+            <div class="text-[11px] text-slate-400">Isolated to this domain deployment</div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-xs font-medium text-slate-400">Active Stage 3 Subscriptions</div>
+            <div class="text-2xl font-bold font-mono text-white">3 Salons</div>
+            <div class="text-[11px] text-amber-400 font-medium">100% Human Verified</div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-xs font-medium text-slate-400">Pending Stage 2 Claims</div>
+            <div class="text-2xl font-bold font-mono text-amber-400">1 Awaiting Call</div>
+            <div class="text-[11px] text-slate-400">Payment receipt attached</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN TAB 1: REVENUE & PAYMENTS -->
+      <div id="adminTab-revenue" class="p-4 sm:p-6 rounded-2xl glass-panel border border-emerald-900/60 space-y-4">
+        <h3 class="text-base sm:text-lg font-bold font-serif text-white">Payment Transaction Ledger</h3>
+        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+          <table class="w-full text-left text-xs min-w-[500px]">
+            <thead class="text-slate-400 border-b border-slate-800 bg-slate-950">
+              <tr>
+                <th class="py-2.5 px-3 font-mono">Tx ID</th>
+                <th class="py-2.5 px-3">Salon Venue</th>
+                <th class="py-2.5 px-3">PWYW Tier</th>
+                <th class="py-2.5 px-3 font-mono">Amount</th>
+                <th class="py-2.5 px-3">Status</th>
+                <th class="py-2.5 px-3">Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsTableBody" class="divide-y divide-slate-800/60 font-mono">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADMIN TAB 2: STAGE 2 HITL VERIFICATION DESK -->
+      <div id="adminTab-claims" class="hidden p-4 sm:p-6 rounded-2xl glass-panel border border-amber-500/40 space-y-4">
+        <h3 class="text-base sm:text-lg font-bold font-serif text-amber-300">Stage 2: Human Phone Verification Desk</h3>
+        <p class="text-xs text-slate-300">
+          Review paid claims, conduct direct phone call to salon desk, verify booking link active state, and click approve to grant Stage 3 Gold Verified Partner status.
+        </p>
+
+        <div id="claimsDeskContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- ADMIN TAB 3: SEO BLOG CMS EDITOR -->
+      <div id="adminTab-cms" class="hidden p-4 sm:p-6 rounded-2xl glass-panel border border-emerald-900/60 space-y-4 sm:space-y-6">
+        <h3 class="text-base sm:text-lg font-bold font-serif text-white">Create New SEO Blog Post</h3>
+
+        <form onsubmit="handleCreateBlogPost(event)" class="space-y-4 max-w-2xl">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Article Title</label>
+            <input type="text" id="blogTitleInput" required placeholder="The Ultimate Guide to Hand-Tied Extensions in Winter Park" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">URL Slug</label>
+            <input type="text" id="blogSlugInput" required placeholder="ultimate-guide-hand-tied-extensions-winter-park" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-mono text-emerald-300 focus:border-emerald-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Article Summary & Meta Description</label>
+            <textarea id="blogSummaryInput" rows="3" required placeholder="Comprehensive guide on hand-tied extensions maintenance, pricing, and certified installation specialists on Park Avenue." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Publish SEO Article & Generate Schema
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- STAGE 1 PWYW CHECKOUT MODAL -->
+  <div id="stage1Modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="w-full max-w-md rounded-2xl sm:rounded-3xl glass-panel border border-emerald-900/60 p-5 sm:p-8 space-y-5 relative shadow-2xl my-auto">
+      <button onclick="closeStage1Modal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="space-y-1.5">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-semibold">
+          <i class="fa-solid fa-credit-card text-emerald-400"></i> Stage 1: Pay First (PWYW Checkout)
+        </div>
+        <h3 class="text-xl sm:text-2xl font-bold font-serif text-white">Subscribe & Enter Queue</h3>
+        <p class="text-xs text-slate-300">
+          Choose your monthly PWYW contribution. After payment succeeds, your application enters Stage 2 for human phone verification.
+        </p>
+      </div>
+
+      <form onsubmit="handleStage1Checkout(event)" class="space-y-3.5">
+        <input type="hidden" id="checkoutSalonId" />
+        
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Target Salon Venue</label>
+          <input type="text" id="checkoutSalonName" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-emerald-300 font-bold">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Select Monthly PWYW Contribution</label>
+          <select id="checkoutPwywSelect" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none">
+            <option value="15" selected>Supporter Tier — $15.00 / mo (Gold Badge)</option>
+            <option value="35">Growth Tier — $35.00 / mo (Top Hero Spot)</option>
+            <option value="0">Community Tier — $0.00 / mo (Standard List)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Applicant Name</label>
+            <input type="text" id="checkoutApplicantName" required placeholder="Mark Evans" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Direct Phone Line</label>
+            <input type="text" id="checkoutPhone" required placeholder="(401) 231-1000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 active:bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-lock"></i>
+          Process Payment & Enter Queue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 sm:py-8 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div>&copy; 2026 Interchained LLC • Mint on the Avenue Local SEO Platform</div>
+      <div class="flex items-center gap-3 font-mono text-[10px] sm:text-[11px] justify-center flex-wrap">
+        <span class="text-emerald-400"><i class="fa-solid fa-circle text-[7px]"></i> TypeScript SSR</span>
+        <span class="text-amber-400">Mobile Responsive</span>
+        <span class="text-purple-400">nedb-engine Merkle Logs</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    let realSalons = [
+      {
+        _id: 'sal_mint_winter_park',
+        name: 'Mint on the Avenue',
+        tagline: 'Premier Aveda Salon & Color Specialist on Park Avenue',
+        city: 'Winter Park',
+        state: 'FL',
+        address: '326 Park Ave N, Winter Park, FL 32789',
+        phone: '(401) 231-1000',
+        verifiedPhone: true,
+        rating: 4.9,
+        reviewCount: 128,
+        bookingUrl: 'https://www.phorest.com/salon/mintontheavenue',
+        specialties: ['Balayage & Color', 'Aveda Organic Color', 'Hair Extensions', 'Precision Cuts'],
+        workflowStage: 'stage3_verified_by_humans',
+        pwywTierName: 'Growth',
+        pwywMonthlyAmount: 35,
+        imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+        services: [
+          { name: 'Custom Balayage & Gloss Treatment', price: '$220.00' },
+          { name: 'Aveda Botanical Organic Full Color', price: '$145.00' }
+        ]
+      },
+      {
+        _id: 'sal_maitland_studio',
+        name: 'Maitland Hair Studio',
+        tagline: 'Master Blonding & Platinum Hair Specialists',
+        city: 'Maitland',
+        state: 'FL',
+        address: '110 N Orlando Ave, Maitland, FL 32751',
+        phone: '(407) 555-0192',
+        verifiedPhone: true,
+        rating: 4.8,
+        reviewCount: 84,
+        bookingUrl: 'https://www.vagaro.com',
+        specialties: ['Blonding Specialist', 'Precision Cuts'],
+        workflowStage: 'stage3_verified_by_humans',
+        pwywTierName: 'Supporter',
+        pwywMonthlyAmount: 15,
+        imageUrl: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80',
+        services: [
+          { name: 'Full Platinum Blonding Session', price: '$260.00' }
+        ]
+      },
+      {
+        _id: 'sal_orlando_lab',
+        name: 'Orlando Extension Lab',
+        tagline: 'Certified Tape-In & I-Tip Extension Specialists',
+        city: 'Orlando',
+        state: 'FL',
+        address: '420 E Church St, Orlando, FL 32801',
+        phone: '(407) 555-0841',
+        verifiedPhone: true,
+        rating: 5.0,
+        reviewCount: 92,
+        bookingUrl: 'https://www.boulevard.com',
+        specialties: ['Hair Extensions', 'Balayage & Color'],
+        workflowStage: 'stage3_verified_by_humans',
+        pwywTierName: 'Growth',
+        pwywMonthlyAmount: 50,
+        imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80',
+        services: [
+          { name: 'I-Tip Extension Micro-Ring Install', price: '$450.00' }
+        ]
+      },
+      {
+        _id: 'sal_winter_garden_curl',
+        name: 'Winter Garden Curl Co.',
+        tagline: 'Specialized Curly Hair Cuts & Hydration Therapy',
+        city: 'Winter Garden',
+        state: 'FL',
+        address: '160 Plant St, Winter Garden, FL 34787',
+        phone: '(407) 555-0331',
+        verifiedPhone: false,
+        rating: 4.7,
+        reviewCount: 49,
+        bookingUrl: 'https://www.glossgenius.com',
+        specialties: ['Curly Hair'],
+        workflowStage: 'stage2_awaiting_verification',
+        pwywTierName: 'Supporter',
+        pwywMonthlyAmount: 15,
+        imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+        services: [
+          { name: 'DevaCut Dry Cut & Curl Hydration', price: '$95.00' }
+        ]
+      }
+    ];
+
+    let paymentsList = [
+      { txId: 'tx_pwyw_mint_9012', salonName: 'Mint on the Avenue', pwywTier: 'Growth', amount: 35, status: 'succeeded', timestamp: '2026-07-01 10:15' },
+      { txId: 'tx_pwyw_maitland_8810', salonName: 'Maitland Hair Studio', pwywTier: 'Supporter', amount: 15, status: 'succeeded', timestamp: '2026-07-05 14:20' },
+      { txId: 'tx_pwyw_orlando_7731', salonName: 'Orlando Extension Lab', pwywTier: 'Growth', amount: 50, status: 'succeeded', timestamp: '2026-07-10 11:00' },
+      { txId: 'tx_pwyw_wg_5519', salonName: 'Winter Garden Curl Co.', pwywTier: 'Supporter', amount: 15, status: 'succeeded', timestamp: '2026-07-26 16:00' }
+    ];
+
+    let claimsDesk = [
+      {
+        claimId: 'clm_hitl_stage2_01',
+        salonId: 'sal_winter_garden_curl',
+        salonName: 'Winter Garden Curl Co.',
+        applicantName: 'Sarah Jenkins',
+        applicantRole: 'Lead Stylist & Manager',
+        directPhone: '(407) 555-0331',
+        pwywMonthlyAmount: 15,
+        paymentTxId: 'tx_pwyw_wg_5519'
+      }
+    ];
+
+    let blogPosts = [
+      {
+        id: 'post_balayage_winter_park',
+        slug: 'ultimate-guide-balayage-winter-park-fl',
+        title: 'The Ultimate Guide to Custom Balayage in Winter Park, FL',
+        summary: 'Discover why hand-painted balayage and Aveda organic gloss treatments are Winter Park’s most requested hair coloring services on Park Avenue.',
+        author: 'Mark Evans',
+        publishedAt: 'July 15, 2026',
+        readTime: '5 min read',
+        image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80'
+      }
+    ];
+
+    let activeCampaign = 'winter_park';
+
+    const CAMPAIGN_SPECS = {
+      winter_park: {
+        domain: 'winter-park-hair.com',
+        envVar: 'SALON_CAMPAIGN=winter_park',
+        tagline: 'Hyper-Local Flagship • Mint on the Avenue Anchor',
+        heroTitle: 'Park Avenue’s Premier Aveda Hair Salon',
+        heroSubtitle: 'Hand-crafted Balayage, Aveda Botanical Color, Precision Haircuts, and Certified Hand-Tied Hair Extensions at Mint on the Avenue in Winter Park, FL.'
+      },
+      hair_stylist: {
+        domain: 'hair-stylist-near-me.com',
+        envVar: 'SALON_CAMPAIGN=hair_stylist',
+        tagline: 'High-Intent Specialist & Independent Stylist Network',
+        heroTitle: 'Find Top Balayage & Extension Specialists Near You',
+        heroSubtitle: 'Connect directly with certified hair extension artists, master blonding specialists, and precision colorists in Central Florida.'
+      },
+      salon_directory: {
+        domain: 'salon-near-me.com',
+        envVar: 'SALON_CAMPAIGN=salon_directory',
+        tagline: 'National Open Hair Salon Directory & PWYW Platform',
+        heroTitle: 'Find & Book Top-Rated Hair Salons Near You',
+        heroSubtitle: 'Discover verified local salons, compare service menus, and book directly with Central Florida’s top salons and stylists.'
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSalonsGrid();
+      renderPaymentsTable();
+      renderClaimsDesk();
+      renderBlogGrid();
+    });
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function switchCampaign(cKey) {
+      activeCampaign = cKey;
+      const spec = CAMPAIGN_SPECS[cKey];
+
+      document.getElementById('appDomainTitle').innerText = spec.domain;
+      document.getElementById('appDomainTagline').innerText = spec.tagline;
+      document.getElementById('envBadge').innerText = spec.envVar;
+      document.getElementById('heroTitle').innerText = spec.heroTitle;
+      document.getElementById('heroSubtitle').innerText = spec.heroSubtitle;
+      document.getElementById('adminEnvBadge').innerText = `DB Instance: ${cKey}_db`;
+
+      document.querySelectorAll('.env-tab').forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-slate-950', 'font-bold', 'shadow-md');
+        b.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById(`envBtn-${cKey}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400');
+        activeBtn.classList.add('bg-emerald-600', 'text-slate-950', 'font-bold', 'shadow-md');
+      }
+
+      renderSalonsGrid();
+    }
+
+    function renderSalonsGrid() {
+      const grid = document.getElementById('salonsGrid');
+      grid.innerHTML = '';
+
+      realSalons.forEach(s => {
+        const card = document.createElement('div');
+        card.className = "rounded-2xl glass-card border border-emerald-950/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1";
+
+        let badgeHtml = '';
+        if (s.workflowStage === 'stage3_verified_by_humans') {
+          badgeHtml = `
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-semibold flex items-center gap-1 shadow-md shadow-emerald-900/30">
+              <i class="fa-solid fa-shield-check text-emerald-400"></i> Stage 3: Verified
+            </span>
+          `;
+        } else if (s.workflowStage === 'stage2_awaiting_verification') {
+          badgeHtml = `
+            <span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-clock-rotate-left text-amber-400"></i> Stage 2: Awaiting Call
+            </span>
+          `;
+        } else {
+          badgeHtml = `
+            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[10px] font-semibold">
+              Unclaimed
+            </span>
+          `;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="relative h-44 sm:h-48 overflow-hidden">
+              <img src="${s.imageUrl}" alt="${s.name}" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+              
+              <div class="absolute top-3 right-3">
+                ${badgeHtml}
+              </div>
+
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white font-medium">
+                <span class="bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5 text-[11px]">
+                  <i class="fa-solid fa-location-dot text-emerald-400"></i> ${s.city}, ${s.state}
+                </span>
+                <span class="bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-slate-800 font-mono text-amber-400 flex items-center gap-1 text-[11px]">
+                  <i class="fa-solid fa-star text-amber-400"></i> ${s.rating} (${s.reviewCount})
+                </span>
+              </div>
+            </div>
+
+            <div class="p-4 sm:p-5 space-y-2.5">
+              <div>
+                <h3 class="font-serif text-lg sm:text-xl font-bold text-white">${s.name}</h3>
+                <p class="text-xs text-slate-300 mt-0.5">${s.tagline}</p>
+                <p class="text-xs text-slate-400 flex items-center gap-1 mt-1 font-mono">
+                  <i class="fa-solid fa-phone text-emerald-400"></i> ${s.phone}
+                </p>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-1">
+                ${s.specialties.map(sp => `<span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] font-mono text-emerald-300">${sp}</span>`).join(' ')}
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/80 space-y-1">
+                <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Aveda Service Menu:</div>
+                ${s.services.map(srv => `
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-200 truncate pr-2">${srv.name}</span>
+                    <span class="font-mono text-emerald-400 font-bold shrink-0">${srv.price}+</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 pt-2 border-t border-slate-800/60 mt-2 flex items-center justify-between gap-2">
+            <a href="${s.bookingUrl}" target="_blank" rel="noopener" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs text-center shadow-md transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-calendar-check"></i> Book Online
+            </a>
+            ${s.workflowStage !== 'stage3_verified_by_humans' ? `
+              <button onclick="openStage1Checkout('${s._id}', '${s.name}')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 font-semibold text-xs border border-slate-800 transition flex items-center gap-1">
+                <i class="fa-solid fa-credit-card"></i> Pay
+              </button>
+            ` : ''}
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // VIEW SWITCHING
+    function showPublicView() {
+      document.getElementById('publicView').classList.remove('hidden');
+      document.getElementById('blogView').classList.add('hidden');
+      document.getElementById('adminView').classList.add('hidden');
+    }
+
+    function showBlogView() {
+      document.getElementById('publicView').classList.add('hidden');
+      document.getElementById('blogView').classList.remove('hidden');
+      document.getElementById('adminView').classList.add('hidden');
+    }
+
+    function showAdminView() {
+      document.getElementById('publicView').classList.add('hidden');
+      document.getElementById('blogView').classList.add('hidden');
+      document.getElementById('adminView').classList.remove('hidden');
+    }
+
+    function switchAdminTab(tKey) {
+      document.getElementById('adminTab-revenue').classList.add('hidden');
+      document.getElementById('adminTab-claims').classList.add('hidden');
+      document.getElementById('adminTab-cms').classList.add('hidden');
+
+      document.querySelectorAll('button[id^="adminTabBtn-"]').forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-slate-950');
+        b.classList.add('text-slate-400');
+      });
+
+      document.getElementById(`adminTab-${tKey}`).classList.remove('hidden');
+      const btn = document.getElementById(`adminTabBtn-${tKey}`);
+      btn.classList.remove('text-slate-400');
+      btn.classList.add('bg-emerald-600', 'text-slate-950');
+    }
+
+    // STAGE 1 PWYW CHECKOUT
+    function openStage1Checkout(id, name) {
+      document.getElementById('stage1Modal').classList.remove('hidden');
+      document.getElementById('checkoutSalonId').value = id;
+      document.getElementById('checkoutSalonName').value = name;
+    }
+
+    function closeStage1Modal() {
+      document.getElementById('stage1Modal').classList.add('hidden');
+    }
+
+    function handleStage1Checkout(e) {
+      e.preventDefault();
+      const salonId = document.getElementById('checkoutSalonId').value;
+      const name = document.getElementById('checkoutSalonName').value;
+      const amount = parseInt(document.getElementById('checkoutPwywSelect').value);
+      const applicantName = document.getElementById('checkoutApplicantName').value;
+      const phone = document.getElementById('checkoutPhone').value;
+
+      const txId = `tx_pwyw_${Date.now().toString().slice(-4)}`;
+      const claimId = `clm_hitl_${Date.now().toString().slice(-4)}`;
+
+      paymentsList.unshift({
+        txId,
+        salonName: name,
+        pwywTier: amount >= 35 ? 'Growth' : amount >= 15 ? 'Supporter' : 'Community',
+        amount,
+        status: 'succeeded',
+        timestamp: 'Just Now'
+      });
+
+      claimsDesk.unshift({
+        claimId,
+        salonId,
+        salonName: name,
+        applicantName,
+        applicantRole: 'Owner / Manager',
+        directPhone: phone,
+        pwywMonthlyAmount: amount,
+        paymentTxId: txId
+      });
+
+      const salon = realSalons.find(s => s._id === salonId);
+      if (salon) {
+        salon.workflowStage = 'stage2_awaiting_verification';
+      }
+
+      closeStage1Modal();
+      renderSalonsGrid();
+      renderPaymentsTable();
+      renderClaimsDesk();
+
+      alert(`Stage 1 Payment Successful ($${amount}/mo)! Receipt ID: ${txId}. Profile moved to Stage 2 (Awaiting Human Phone Verification).`);
+    }
+
+    // STAGE 3 HUMAN VERIFICATION DESK
+    function renderClaimsDesk() {
+      const container = document.getElementById('claimsDeskContainer');
+      container.innerHTML = '';
+
+      if (claimsDesk.length === 0) {
+        container.innerHTML = `<div class="col-span-full p-6 text-center text-xs text-slate-400">All paid claims verified by humans!</div>`;
+        return;
+      }
+
+      claimsDesk.forEach(c => {
+        const card = document.createElement('div');
+        card.className = "p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-3";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-400 font-mono">${c.claimId}</span>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-semibold">Stage 2: Paid & Awaiting Call</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-sm font-bold text-white">${c.salonName}</div>
+            <div class="text-xs text-slate-300">Applicant: ${c.applicantName} (${c.applicantRole})</div>
+            <div class="text-xs text-emerald-400 font-mono">Call Salon Phone Line: ${c.directPhone}</div>
+            <div class="text-[11px] text-slate-400 font-mono">Payment Receipt: ${c.paymentTxId} ($${c.pwywMonthlyAmount}/mo)</div>
+          </div>
+          <div class="pt-2 border-t border-slate-800 flex justify-end">
+            <button onclick="approveStage3Call('${c.claimId}')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 w-full sm:w-auto justify-center">
+              <i class="fa-solid fa-phone-circle-check"></i> Complete Phone Call & Approve Stage 3
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function approveStage3Call(claimId) {
+      const idx = claimsDesk.findIndex(c => c.claimId === claimId);
+      if (idx !== -1) {
+        const claim = claimsDesk[idx];
+        const salon = realSalons.find(s => s._id === claim.salonId);
+        if (salon) {
+          salon.workflowStage = 'stage3_verified_by_humans';
+          salon.verifiedPhone = true;
+        }
+        claimsDesk.splice(idx, 1);
+        renderClaimsDesk();
+        renderSalonsGrid();
+        alert(`Stage 3 Human Verification Complete! Gold Partner Badge issued for ${claim.salonName}.`);
+      }
+    }
+
+    function renderPaymentsTable() {
+      const tbody = document.getElementById('paymentsTableBody');
+      tbody.innerHTML = '';
+
+      paymentsList.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-900/50 transition";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-slate-400">${p.txId}</td>
+          <td class="py-2.5 px-3 font-sans font-bold text-white">${p.salonName}</td>
+          <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-emerald-400 text-[10px]">${p.pwywTier}</span></td>
+          <td class="py-2.5 px-3 text-emerald-400 font-bold">$${p.amount}.00</td>
+          <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold">${p.status}</span></td>
+          <td class="py-2.5 px-3 text-slate-400">${p.timestamp}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // SEO BLOG ENGINE
+    function renderBlogGrid() {
+      const grid = document.getElementById('blogGrid');
+      grid.innerHTML = '';
+
+      blogPosts.forEach(p => {
+        const card = document.createElement('article');
+        card.className = "rounded-2xl glass-card border border-emerald-950/40 overflow-hidden space-y-3 p-4 sm:p-6";
+        card.innerHTML = `
+          <div class="h-40 sm:h-48 rounded-xl overflow-hidden">
+            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+              <span>${p.publishedAt}</span>
+              <span>${p.readTime}</span>
+            </div>
+            <h3 class="font-serif text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition">${p.title}</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">${p.summary}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function handleCreateBlogPost(e) {
+      e.preventDefault();
+      const title = document.getElementById('blogTitleInput').value;
+      const slug = document.getElementById('blogSlugInput').value;
+      const summary = document.getElementById('blogSummaryInput').value;
+
+      blogPosts.unshift({
+        id: `post_${Date.now().toString().slice(-4)}`,
+        slug,
+        title,
+        summary,
+        author: 'Mark Evans',
+        publishedAt: 'Today',
+        readTime: '4 min read',
+        image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80'
+      });
+
+      renderBlogGrid();
+      showBlogView();
+      alert(`SEO Article published! Auto-generated BlogPosting JSON-LD schema injected into raw HTML.`);
+    }
+  </script>
+</body>
+</html>
